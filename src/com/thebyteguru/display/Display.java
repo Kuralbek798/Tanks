@@ -24,7 +24,8 @@ public abstract class Display {
 
         Dimension size = new Dimension(width,height);
         content.setPreferredSize(size);
-        content.setBackground(color.black);
+        content.setBackground(Color.black);
+
         window.setResizable(false);
         window.getContentPane().add(content);
         window.pack();
@@ -34,10 +35,11 @@ public abstract class Display {
 
     }
 
-    public static void render(Graphics g){
+    public static void render(){
 content.repaint();
     }
-    /*private static void (Graphics g){
-
-    }*/
+    private static void render (Graphics g){
+       g.setColor(Color.white);
+       g.fillOval(400 - 50, 300 -50, 100, 100);
+    }
 }
