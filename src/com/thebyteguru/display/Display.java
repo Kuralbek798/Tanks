@@ -2,6 +2,7 @@ package com.thebyteguru.display;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.util.Arrays;
@@ -17,12 +18,14 @@ public abstract class Display {
     private static Graphics bufferGraphics;
     private static int clearColor;
 
+private static BufferStrategy bufferStrategy;
+
     // temp
     private static float delta = 0;
 
     // temp end
 
-    public static void create(int width, int height, String title, int _clearColor) {
+    public static void create(int width, int height, String title, int _clearColor,int numBuffers) {
         if (created)
             return;
 
@@ -45,6 +48,9 @@ public abstract class Display {
         bufferGraphics = buffer.getGraphics();
         clearColor = _clearColor;
 
+        content.createBufferStrategy(numBuffers);
+bufferStrategy = content.getBufferStrategy();
+
         created = true;
 
     }
@@ -57,7 +63,7 @@ bufferGraphics.fillOval((int) (350 + (Math.sin(delta) * 200)), 250,100, 100);
 delta += 0.02f;
 }
 public static void swapBuffers(){
-        Graphics g = content.getGraphics();
+        Graphics g = bufferStrategy.getDrawGraphics();
         g.drawImage(buffer,0,0, null);
 }
 
